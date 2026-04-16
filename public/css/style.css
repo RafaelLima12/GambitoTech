@@ -1,11 +1,11 @@
-body{
+body {
     padding: 0px;
     margin: 0px;
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: var(--fundo);
 }
 
-*{
+* {
     padding: 0px;
     margin: 0px;
 }
@@ -19,13 +19,13 @@ body{
     --branco-puro: #FFFFFF;
 }
 
-#navbar{
+#navbar {
     background-color: var(--card);
     height: 80px;
     width: 100%;
 }
 
-.nav_content{
+.nav_content {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -33,7 +33,7 @@ body{
     height: 100%;
 }
 
-.nav_links{
+.nav_links {
     display: flex;
     justify-content: space-around;
     width: 30%;
@@ -41,7 +41,7 @@ body{
     font-size: large;
 }
 
-.nav_links a{
+.nav_links a {
     text-decoration: none;
     color: inherit;
 }
@@ -65,13 +65,88 @@ body{
 } */
 
 
-#nav_logo img{
+#nav_logo img {
     width: 20%;
 }
 
 /* Banner */
-#banner{
+#banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-image: url(../assets/imgs/fundoQuadriculado.png);
     height: 100vh;
     background-size: cover;
 }
+
+
+#img_banner {
+    width: 70%;
+    z-index: 2;
+}
+
+.img_banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner_destaque_txt {
+    color: var(--texto-claro);
+    font-size: 170px;
+    flex-wrap: wrap;
+    font-weight: bolder;
+
+    position: absolute;
+    width: 60%;
+    text-align: center;
+    z-index: 1;
+}
+
+.txt_destaque {
+    color: var(--verde-chess);
+}
+
+#txt_banner_principal {
+    z-index: 2;
+}
+
+#txt_banner_borda_destaque {
+    color: transparent;
+    -webkit-text-stroke: 4px var(--verde-chess);
+    z-index: 3;
+}
+
+#txt_banner_borda {
+    color: transparent;
+    -webkit-text-stroke: 4px var(--texto-claro);
+    z-index: 3;
+}
+
+.borda {
+    font-size: 170px;
+    flex-wrap: wrap;
+    font-weight: bolder;
+
+    position: absolute;
+    width: 60%;
+    text-align: center;
+    z-index: 3;
+}
+
+/* Animacao do rei do banner */
+@keyframes flutuar {
+
+    0%,
+    100% {
+        transform: translateY(-30px) rotate(1deg);
+    }
+
+    50% {
+        transform: translateY(30px) rotate(-30deg);
+    }
+}
+
+.flutuacao {
+    animation: flutuar 5s ease-in-out infinite;
+} /*colocar esse nome "flutuacao" nos elementos que eu queira que tenha essa animação */
