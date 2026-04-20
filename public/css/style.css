@@ -3,6 +3,7 @@ body {
     margin: 0px;
     font-family: 'Segoe UI', Arial, sans-serif;
     background-color: var(--fundo);
+    color: var(--texto-claro);
 }
 
 * {
@@ -13,7 +14,7 @@ body {
 :root {
     --fundo: #303030;
     --card: #262421;
-    --verde-chess: #769656;
+    --verde-chess: #739e45;
     --verde-hover: #5d7a44;
     --texto-claro: #EEEED2;
     --branco-puro: #FFFFFF;
@@ -37,7 +38,7 @@ body {
     display: flex;
     justify-content: space-around;
     width: 30%;
-    color: #5d7a44;
+    color: var(--verde-chess);
     font-size: large;
 }
 
@@ -66,7 +67,7 @@ body {
 
 
 #nav_logo img {
-    width: 20%;
+    width: 10%;
 }
 
 /* Banner */
@@ -98,7 +99,7 @@ body {
     font-weight: bolder;
 
     position: absolute;
-    width: 60%;
+    width: 90%;
     text-align: center;
     z-index: 1;
 }
@@ -129,7 +130,7 @@ body {
     font-weight: bolder;
 
     position: absolute;
-    width: 60%;
+    width: 90%;
     text-align: center;
     z-index: 3;
 }
@@ -149,4 +150,42 @@ body {
 
 .flutuacao {
     animation: flutuar 5s ease-in-out infinite;
-} /*colocar esse nome "flutuacao" nos elementos que eu queira que tenha essa animação */
+}
+
+/*colocar esse nome "flutuacao" nos elementos que eu queira que tenha essa animação */
+
+/*Seção O que é o xadrez */
+#oQueE{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.txt_oqueE{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 70%;
+    height: 100%;
+}
+
+.titulo_destaque_p {
+    color: var(--verde-chess);
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+#img_oqueE img{
+    width: 400px;
+    height: 500px;
+    border-radius: 50px;
+    padding-right: 20px;
+}
+
+.txt_desc_p{
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
