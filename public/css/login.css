@@ -1,0 +1,65 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto-claro);
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+:root {
+    --fundo: #303030;
+    --fundo-secundaria: #262421;
+    --verde-chess: #739e45;
+    --verde-escuro: #5d7a44;
+    --texto-claro: #EEEED2;
+    --branco-puro: #FFFFFF;
+}
+
+#login_section{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_login{
+    width: 500px;
+    height: 600px;
+    background-color: var(--fundo-secundaria);
+    border-radius: 30px;
+    border: 3px solid var(--verde-escuro);
+}
+
+#txt_logo{
+    color: var(--texto-claro);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.txt_destaque {
+    color: var(--verde-chess);
+}
+
+#head_login img {
+    width: 100px;
+}
+
+#head_login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#corpo_login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+}
