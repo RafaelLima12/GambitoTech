@@ -2,7 +2,7 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--fundo);
+
     color: var(--texto-claro);
 }
 
@@ -20,23 +20,29 @@ body {
     --branco-puro: #FFFFFF;
 }
 
-#login_section{
+#login_section {
     display: flex;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 80px); /*Estou usando calc para definir o tamanho da tela. 100vh(tela inteira) -80px(tamanho da nav)*/
     align-items: center;
     justify-content: center;
+
+    background-image: url(../assets/imgs/fundoLogin.png);
+    background-size: cover;
 }
 
-.card_login{
+.card_login {
     width: 500px;
-    height: 600px;
-    background-color: var(--fundo-secundaria);
+    height: 500px;
+    background-color: #262421ac;
     border-radius: 30px;
     border: 3px solid var(--verde-escuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#txt_logo{
+#txt_logo {
     color: var(--texto-claro);
     font-size: 30px;
     font-weight: bold;
@@ -50,13 +56,13 @@ body {
     width: 100px;
 }
 
-#head_login{
+#head_login {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#corpo_login{
+#corpo_login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,9 +70,11 @@ body {
     height: 460px;
 }
 
-#ipt_email, #ipt_senha{
+#ipt_email,
+#ipt_senha {
     height: 35px;
     width: 300px;
+
     border-radius: 20px;
     border: 3px solid var(--verde-escuro);
     background-color: var(--fundo);
@@ -75,7 +83,7 @@ body {
     font-weight: bold;
 }
 
-.txt_input{
+.txt_input {
     color: var(--verde-chess);
     font-size: 17px;
     font-weight: bold;
@@ -83,14 +91,14 @@ body {
     margin-bottom: 5px;
 }
 
-#inputs_corpo{
+#inputs_corpo {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-#botao_logar{
-    margin-top: 100px;
+#botao_logar {
+    margin-top: 50px;
     height: 40px;
     width: 180px;
     border-radius: 30px;
@@ -102,8 +110,59 @@ body {
     transition: 0.3s ease;
 }
 
-#botao_logar:hover{
+#botao_logar:hover {
     transform: translateY(-6px);
     color: var(--fundo);
     background-color: var(--verde-chess);
+}
+
+#cadastro_txt {
+    margin-top: 30px;
+}
+
+#cadastro_txt a {
+    color: var(--verde-chess);
+}
+
+
+#navbar {
+    background-color: var(--fundo-secundaria);
+    height: 80px;
+    width: 100%;
+}
+
+.nav_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.nav_links {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    color: var(--verde-chess);
+    font-size: large;
+}
+
+.nav_links a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#nav_logo img {
+    width: 100px;
+}
+
+#nav_logo {
+    display: flex;
+    align-items: center;
+}
+
+#txt_logo {
+    color: var(--texto-claro);
+    font-size: 30px;
+    font-weight: bold;
 }
