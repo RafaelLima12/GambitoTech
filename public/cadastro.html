@@ -46,7 +46,7 @@
 
                     <div class="input_cadastro">
                         <p class="txt_input">Nome</p>
-                        <input type="text" id="ipt_confirmar_senha" placeholder="Seu nome">
+                        <input type="text" id="ipt_nome" placeholder="Seu nome">
                     </div>
 
 
@@ -69,7 +69,7 @@
 
                 </div>
 
-                <button id="botao_logar">Logar</button>
+                <button id="botao_logar" onclick="cadastrar()">Logar</button>
 
                 <div id="cadastro_txt">Já possui conta? <a href="login.html">fazer login</a></div>
             </div>
@@ -81,13 +81,51 @@
 </body>
 
 </html>
-<p style="color: #c94c4c;"></p>
+
 <script>
 
-    function validarNome(){
-        
+    function cadastrar() {
+        let nome = ipt_nome.value;
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
-    
+
+    function validarNome() {
+
+    }
+
     function verificarEmail() {
         let email = ipt_email.value;
 
