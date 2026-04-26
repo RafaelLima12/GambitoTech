@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+
+<body>
+
+    <div id="navbar">
+        <div class="nav_content">
+            <div id="nav_logo">
+                <img src="assets/imgs/logo.png" alt="">
+
+                <span id="txt_logo">Gambito<span class="txt_destaque">Tech</span></span>
+            </div>
+
+            <div class="nav_links">
+                <a href="index.html">Home</a>
+                <a href="#oQueE">Sobre</a>
+                <a href="">Como jogar?</a>
+                <p>|</p>
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Cadastro</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="cadastro_section">
+
+
+        <div class="card_cadastro">
+            <div id="head_cadastro">
+                <img src="assets/imgs/logo.png" alt="">
+                <span id="txt_logo">Gambito<span class="txt_destaque">Tech</span></span>
+            </div>
+
+            <div id="corpo_cadastro">
+
+
+
+                <div id="inputs_corpo">
+
+                    <div class="input_cadastro">
+                        <p class="txt_input">Nome</p>
+                        <input type="text" id="ipt_confirmar_senha" placeholder="Seu nome">
+                    </div>
+
+
+                    <div class="input_cadastro">
+                        <p class="txt_input">E-mail</p>
+                        <input type="email" id="ipt_email" placeholder="usuario@gmail.com" oninput="verificarEmail()">
+                        <div id="txt_verificarEmail"></div>
+                    </div>
+
+                    <div class="input_cadastro">
+                        <p class="txt_input">Senha</p>
+                        <input type="password" id="ipt_senha" placeholder="********">
+                    </div>
+
+                    <div class="input_cadastro">
+                        <p class="txt_input">Confirmar senha</p>
+                        <input type="password" id="ipt_confirmar_senha" placeholder="********">
+                    </div>
+
+
+                </div>
+
+                <button id="botao_logar">Logar</button>
+
+                <div id="cadastro_txt">Já possui conta? <a href="login.html">fazer login</a></div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
+<p style="color: #c94c4c;"></p>
+<script>
+
+    function validarNome(){
+        
+    }
+    
+    function verificarEmail() {
+        let email = ipt_email.value;
+
+        txt_verificarEmail.innerHTML = "";
+
+        let emailValido = false;
+
+        if (!email.includes("@")) {
+            txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">Email inválido. Adicione o @</p>';
+        } else if (!email.includes(".com") && !email.includes(".school")) {
+            txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">Email inválido.</p>';
+        } else if (email.indexOf("@") > email.indexOf(".com") && email.indexOf("@") > email.indexOf(".school")) {
+            txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">Email inválido. A ordem está incorreta</p>';
+        } else {
+            emailValido = true;
+            txt_verificarEmail.innerHTML = '<p style="color: #739e45;">Email válido</p>';
+        }
+
+        if (email == "") {
+            txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">O Email é um campo obrigatório</p>';
+        }
+    }
+</script>
