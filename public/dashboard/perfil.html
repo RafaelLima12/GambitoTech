@@ -20,8 +20,8 @@
             </div>
 
             <div class="nav_links">
-                <a href="#oQueE">Sobre</a>
-                <a href="#porQue">Por que jogar?</a>
+                <a href="../index.html">Home</a>
+                <a href="../dashboard/dashboard.html">Dashboard</a>
                 <p>|</p>
                 <a href="login.html">Login</a>
                 <a href="cadastro.html">Cadastro</a>
@@ -30,9 +30,25 @@
     </div>
 
     <div id="perfil_section">
-        <h2>Olá, <span id="b_usuario">Usuario</span>!</h2>
-        <h2>Seu rating: <span id="rating_usuario">300</span></h2>
-        <h2>Seu nível: <span id="nivel_usuario">Capivara</span></h2>
+
+        <div id="head_perfil">
+
+            <div id="info_usuario">
+                <img src="../assets/imgs/foto_perfil_default.png" alt="" id="foto_perfil">
+
+                <div id="info_txt">
+                    <h2>Olá, <span id="b_usuario">Usuario</span>!</h2>
+                    <h2>Seu rating: <span id="rating_usuario">300</span></h2>
+                    <h2>Seu nível: <span id="nivel_usuario">Capivara</span></h2>
+                </div>
+            </div>
+
+            <button id="btn_deslogar" onclick="limparSessao()">Deslogar</button>
+
+        </div>
+
+
+
 
     </div>
 </body>

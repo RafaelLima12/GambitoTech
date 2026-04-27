@@ -64,3 +64,63 @@ body {
     font-size: 30px;
     font-weight: bold;
 }
+
+#perfil_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#head_perfil{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    height: 200px;
+    border-bottom: 2px solid var(--verde-chess);
+}
+
+#info_usuario{
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#foto_perfil{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#info_txt{
+    margin-right: 150px;
+}
+
+#nivel_usuario{
+    background-color: var(--verde-escuro);
+    color: var(--fundo);
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+#btn_deslogar{
+    background-color: var(--fundo);
+    border: 3px solid var(--verde-chess);
+    border-radius: 20px;
+    color: var(--verde-chess);
+    font-weight: bold;
+    width: 100px;
+    height: 40px;
+    align-self: flex-end;
+    margin-bottom: 20px;
+
+    transition: 0.3s ease;
+}
+
+#btn_deslogar:hover{
+    color: var(--fundo);
+    background-color: var(--verde-chess);
+
+    transform: translateY(-5px);
+}

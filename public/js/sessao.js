@@ -14,7 +14,7 @@ function validarSessao() {
 
         rating = Number(rating);
         if(rating >= 300){
-            nivel_usuario.innerHTML = "GM";
+            nivel_usuario.innerHTML = "Capivara";
         }
     } else {
         window.location = "../login.html";
