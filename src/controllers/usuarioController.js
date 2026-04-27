@@ -30,7 +30,8 @@ function autenticar(req, res) {
                         res.json({
                             id: resultadoAutenticar[0].id,
                             email: resultadoAutenticar[0].email,
-                            nome: resultadoAutenticar[0].nome
+                            nome: resultadoAutenticar[0].nome,
+                            rating: resultadoAutenticar[0].rating
                         });
 
                     } else if (resultadoAutenticar.length == 0) {

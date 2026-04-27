@@ -104,9 +104,10 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.RATING_USUARIO = json.rating;
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+                        window.location = "./dashboard/perfil.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
@@ -114,6 +115,10 @@
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
+                alert("Email ou/e senha inválido(s)");
+
+                ipt_email.value = "";
+                ipt_senha.value = "";
 
                 resposta.text().then(texto => {
                     console.error(texto);
