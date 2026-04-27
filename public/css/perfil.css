@@ -65,6 +65,7 @@ body {
     font-weight: bold;
 }
 
+/* Seção das informações do usuario */
 #perfil_section{
     display: flex;
     flex-direction: column;
@@ -81,9 +82,9 @@ body {
 
 #info_usuario{
     display: flex;
-    width: 40%;
+    width: 70%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 #foto_perfil{
@@ -91,10 +92,13 @@ body {
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
+
+    border: 3px solid var(--verde-chess);
+    margin-left: 30px;
 }
 
 #info_txt{
-    margin-right: 150px;
+    margin-left: 40px;
 }
 
 #nivel_usuario{
@@ -123,4 +127,73 @@ body {
     background-color: var(--verde-chess);
 
     transform: translateY(-5px);
+}
+
+/* Seção aprender */
+#section_aprender{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 600px;
+}
+
+#cards_section{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.titulo_destaque{
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--verde-chess);
+}
+
+.cards_aprender{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+
+    background-color: var(--fundo);
+    width: 320px;
+    height: 470px;
+    margin-top: 30px;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+    transition: 0.3s ease;
+}
+
+.cards_aprender:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 0 15px #5d7a4489;
+    cursor: pointer;
+}
+
+.img_card{
+    width: 260px;
+    height: 260px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 2px solid var(--verde-chess);
+    object-fit: cover;
+}
+
+.txt_destaque{
+    color: var(--verde-chess);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.texto_card{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    height: 90%;
+
+    text-align: center;
 }
