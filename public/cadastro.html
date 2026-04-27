@@ -47,29 +47,33 @@
                     <div class="input_cadastro">
                         <p class="txt_input">Nome</p>
                         <input type="text" id="ipt_nome" placeholder="Seu nome">
+                        <div id="txt_verificarNome"></div>
                     </div>
 
 
                     <div class="input_cadastro">
                         <p class="txt_input">E-mail</p>
-                        <input type="email" id="ipt_email" placeholder="usuario@gmail.com" oninput="verificarEmail()">
+                        <input type="email" id="ipt_email" placeholder="usuario@gmail.com">
                         <div id="txt_verificarEmail"></div>
                     </div>
 
                     <div class="input_cadastro">
                         <p class="txt_input">Senha</p>
                         <input type="password" id="ipt_senha" placeholder="********">
+                        <div id="txt_verificarSenha"></div>
+
                     </div>
 
                     <div class="input_cadastro">
                         <p class="txt_input">Confirmar senha</p>
                         <input type="password" id="ipt_confirmar_senha" placeholder="********">
+                        <div id="txt_verificarConfirmar"></div>
                     </div>
 
 
                 </div>
 
-                <button id="botao_logar" onclick="cadastrar()">Logar</button>
+                <button id="botao_logar" onclick="verificarCampos()">Cadastrar</button>
 
                 <div id="cadastro_txt">Já possui conta? <a href="login.html">fazer login</a></div>
             </div>
@@ -83,11 +87,7 @@
 </html>
 
 <script>
-
-    function cadastrar() {
-        let nome = ipt_nome.value;
-        let email = ipt_email.value;
-        let senha = ipt_senha.value;
+    function cadastrar(nome, email, senha) {
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
@@ -122,30 +122,82 @@
             });
     }
 
-    function validarNome() {
 
-    }
-
-    function verificarEmail() {
+    function verificarCampos() {
         let email = ipt_email.value;
+        let nome = ipt_nome.value;
+        let senha = ipt_senha.value;
+        let confirmarSenha = ipt_confirmar_senha.value;
 
         txt_verificarEmail.innerHTML = "";
+        txt_verificarConfirmar.innerHTML = "";
+        txt_verificarNome.innerHTML = "";
+        txt_verificarSenha.innerHTML = "";
 
         let emailValido = false;
+        let nomeValido = false;
+        let senhaValida = false;
 
-        if (!email.includes("@")) {
+        let caracteres = ["!", "@", "#", "$", "%", "&", "*", "?", "/", "-", "+"]
+
+        //Verificação do email
+        if (email == "") {
+            txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">O Email é um campo obrigatório</p>';
+        } else if (!email.includes("@")) {
             txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">Email inválido. Adicione o @</p>';
         } else if (!email.includes(".com") && !email.includes(".school")) {
             txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">Email inválido.</p>';
-        } else if (email.indexOf("@") > email.indexOf(".com") && email.indexOf("@") > email.indexOf(".school")) {
+        } else if (email.indexOf("@") > email.lastIndexOf(".com") && email.indexOf("@") > email.lastIndexOf(".school")) {
             txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">Email inválido. A ordem está incorreta</p>';
         } else {
             emailValido = true;
             txt_verificarEmail.innerHTML = '<p style="color: #739e45;">Email válido</p>';
         }
 
-        if (email == "") {
-            txt_verificarEmail.innerHTML = '<p style="color: #c94c4c;">O Email é um campo obrigatório</p>';
+        //Verificação do nome
+        if (nome == "") {
+            txt_verificarNome.innerHTML = '<p style="color: #c94c4c;">O nome é um campo obrigatório</p>';
+        } else if (nome.length < 3) {
+            txt_verificarNome.innerHTML = '<p style="color: #c94c4c;">O nome precisa ter ao menos 3 caracteres</p>';
+        } else {
+            txt_verificarNome.innerHTML = '<p style="color: #739e45;">Nome válido</p>';
+            nomeValido = true;
         }
+
+        //verificação da senha
+        if (senha == "") {
+            txt_verificarSenha.innerHTML = `<p style="color: #c94c4c;">A senha é um campo obrigatório</p>`;
+        } else if (senha.length < 6) {
+            txt_verificarSenha.innerHTML = `<p style="color: #c94c4c;">A senha precisa ter ao menos 6 caracteres</p>`;
+        } else {
+            for (let i = 0; i < caracteres.length; i++) {
+                if (senha.includes(caracteres[i])) {
+                    senhaValida = true;
+                    txt_verificarSenha.innerHTML = `<p style="color: #739e45;">Senha válida</p>`;
+                    break;
+                }
+            }
+
+            if (!senhaValida) {
+                txt_verificarSenha.innerHTML = `<p style="color: #c94c4c;">A senha precisa ter ao menos 1 caracter especial</p>`;
+            }
+        }
+
+        if (confirmarSenha == "") {
+            txt_verificarConfirmar.innerHTML = `<p style="color: #c94c4c;">Confirme a senha</p>`;
+            return;
+        } else if (senha != confirmarSenha) {
+            txt_verificarConfirmar.innerHTML = `<p style="color: #c94c4c;">A senha e a confirmação estão diferentes</p>`;
+            return;
+        }
+
+
+
+
+
+        if (emailValido && nomeValido && senhaValida) {
+            alert("Cadastro realizado com sucesso");
+            cadastrar(nome, email, senha);
+        } 
     }
 </script>
