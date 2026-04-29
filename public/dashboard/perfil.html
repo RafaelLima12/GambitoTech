@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
 
+    <script src="../js/perfil.js"></script>
     <script src="../js/sessao.js"></script>
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), carregarInfoPerfil()">
     <div id="navbar">
         <div class="nav_content">
             <div id="nav_logo">
                 <img src="../assets/imgs/logo.png" alt="">
 
-                <span id="txt_logo">Gambito<span class="txt_destaque">Tech</span></span>
+                <span id="txt_logo">Gambito<span id="txt_destaque_logo">Tech</span></span>
             </div>
 
             <div class="nav_links">
@@ -34,19 +35,21 @@
         <div id="head_perfil">
 
             <div id="info_usuario">
-                <img src="../assets/imgs/foto_perfil_default.png" alt="" id="foto_perfil">
+                <div class="foto">
+                    <input type="file" accept="image/*" onchange="upload()" id="input_img">
+                    <img src="../assets/imgs/foto_perfil_default.png" alt="" id="foto_perfil">
+                </div>
 
                 <div id="info_txt">
                     <h2>Olá, <span id="b_usuario">Usuario</span>!</h2>
-                    <h2>Seu rating: <span id="rating_usuario">300</span></h2>
-                    <h2>Seu nível: <span id="nivel_usuario">Capivara</span></h2>
+                    <h2>Seu rating: <span id="rating_usuario">200</span></h2>
+                    <h2>Seu nível: <span id="nivel_usuario">GM</span></h2>
                 </div>
             </div>
 
             <button id="btn_deslogar" onclick="limparSessao()">Deslogar</button>
 
         </div>
-
 
         <!-- Seção das aulas -->
         <div id="section_aprender">

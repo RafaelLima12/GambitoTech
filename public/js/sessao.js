@@ -2,20 +2,11 @@
 function validarSessao() {
     var email = sessionStorage.EMAIL_USUARIO;
     var nome = sessionStorage.NOME_USUARIO;
-    var rating = sessionStorage.RATING_USUARIO;
 
     var b_usuario = document.getElementById("b_usuario");
-    var rating_usuario = document.getElementById("rating_usuario");
-    var nivel_usuario = document.getElementById("nivel_usuario");
 
     if (email != null && nome != null) {
         b_usuario.innerHTML = nome;
-        rating_usuario.innerHTML = rating;
-
-        rating = Number(rating);
-        if(rating >= 300){
-            nivel_usuario.innerHTML = "Capivara";
-        }
     } else {
         window.location = "../login.html";
     }

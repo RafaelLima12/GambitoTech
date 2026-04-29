@@ -65,14 +65,18 @@ body {
     font-weight: bold;
 }
 
+#txt_destaque_logo {
+    color: var(--verde-chess);
+}
+
 /* Seção das informações do usuario */
-#perfil_section{
+#perfil_section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#head_perfil{
+#head_perfil {
     display: flex;
     justify-content: space-between;
     width: 95%;
@@ -80,14 +84,14 @@ body {
     border-bottom: 2px solid var(--verde-chess);
 }
 
-#info_usuario{
+#info_usuario {
     display: flex;
     width: 70%;
     align-items: center;
     justify-content: flex-start;
 }
 
-#foto_perfil{
+#foto_perfil {
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -95,20 +99,47 @@ body {
 
     border: 3px solid var(--verde-chess);
     margin-left: 30px;
+
+    cursor: pointer;
 }
 
-#info_txt{
+.foto {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.foto input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+
+#info_txt {
     margin-left: 40px;
 }
 
-#nivel_usuario{
+#b_usuario {
+    color: var(--verde-chess);
+}
+
+#rating_usuario {
+    color: var(--verde-chess);
+}
+
+#nivel_usuario {
     background-color: var(--verde-escuro);
     color: var(--fundo);
     border-radius: 5px;
     font-size: 20px;
 }
 
-#btn_deslogar{
+#btn_deslogar {
     background-color: var(--fundo);
     border: 3px solid var(--verde-chess);
     border-radius: 20px;
@@ -122,7 +153,7 @@ body {
     transition: 0.3s ease;
 }
 
-#btn_deslogar:hover{
+#btn_deslogar:hover {
     color: var(--fundo);
     background-color: var(--verde-chess);
 
@@ -130,26 +161,26 @@ body {
 }
 
 /* Seção aprender */
-#section_aprender{
+#section_aprender {
     display: flex;
     flex-direction: column;
     width: 90%;
     height: 600px;
 }
 
-#cards_section{
+#cards_section {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.titulo_destaque{
+.titulo_destaque {
     font-size: 40px;
     font-weight: bold;
     color: var(--verde-chess);
 }
 
-.cards_aprender{
+.cards_aprender {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -165,13 +196,13 @@ body {
     transition: 0.3s ease;
 }
 
-.cards_aprender:hover{
+.cards_aprender:hover {
     transform: translateY(-10px);
     box-shadow: 0 0 15px #5d7a4489;
     cursor: pointer;
 }
 
-.img_card{
+.img_card {
     width: 260px;
     height: 260px;
     border-radius: 10px;
@@ -180,13 +211,13 @@ body {
     object-fit: cover;
 }
 
-.txt_destaque{
+.txt_destaque {
     color: var(--verde-chess);
     font-weight: bold;
     font-size: 20px;
 }
 
-.texto_card{
+.texto_card {
     display: flex;
     flex-direction: column;
 
