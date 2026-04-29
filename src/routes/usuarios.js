@@ -12,6 +12,7 @@ router.post("/autenticar", function(req, res){
     usuarioController.autenticar(req, res);
 });
 
+
 router.get("/listar", function (req, res) {
     // função a ser chamada quando acessar /usuario/listar
     usuarioController.listar(req, res);

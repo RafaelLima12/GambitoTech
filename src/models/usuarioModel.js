@@ -25,6 +25,8 @@ function autenticar(email, senha) {
     return database.executar(instrucaoSql);
 }
 
+
+
 module.exports = {
     cadastrar,
     listar,

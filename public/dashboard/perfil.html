@@ -36,7 +36,7 @@
 
             <div id="info_usuario">
                 <div class="foto">
-                    <input type="file" accept="image/*" onchange="upload()" id="input_img">
+                    <input type="file" accept="image/*" onchange="enviar()" id="input_img">
                     <img src="../assets/imgs/foto_perfil_default.png" alt="" id="foto_perfil">
                 </div>
 
@@ -58,16 +58,19 @@
             <div id="cards_section">
 
 
-                <div class="cards_aprender">
-                    <img src="../assets/imgs/notacao_algebrica.png" alt="" class="img_card">
+                <a href="aulaNotacao.html">
+                    <div class="cards_aprender">
+                        <img src="../assets/imgs/notacao_algebrica.png" alt="" class="img_card">
 
-                    <div class="texto_card">
-                        <p class="txt_destaque">Aprenda Notação Algébrica</p>
+                        <div class="texto_card">
+                            <p class="txt_destaque">Aprenda Notação Algébrica</p>
 
-                        <p class="txt_descricao">Descubra o significado das letras e números do tabuleiro, identifique
-                            movimentos com precisão e acompanhe partidas como um jogador experiente</p>
+                            <p class="txt_descricao">Descubra o significado das letras e números do tabuleiro,
+                                identifique
+                                movimentos com precisão e acompanhe partidas como um jogador experiente</p>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <div class="cards_aprender">
                     <img src="../assets/imgs/movimentos_das_pecas.png" alt="" class="img_card">
@@ -111,3 +114,21 @@
 </body>
 
 </html>
+
+<script>
+    function enviar() {
+        const fotoEnviar = input_img.files[0];
+
+        console.log(fotoEnviar);
+
+        if (fotoEnviar) {
+            const leitor = new FileReader();
+
+            leitor.onload = function (e) {
+                document.getElementById("foto_perfil").src = e.target.result;
+            }
+
+            leitor.readAsDataURL(fotoEnviar);
+        }
+    }
+</script>

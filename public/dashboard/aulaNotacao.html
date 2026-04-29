@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprenda Notação algébrica</title>
+    <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="../css/aulaNotacao.css">
+</head>
+
+<body onload="validarSessao()">
+    <div id="navbar">
+        <div class="nav_content">
+            <div id="nav_logo">
+                <img src="../assets/imgs/logo.png" alt="">
+
+                <span id="txt_logo">Gambito<span id="txt_destaque_logo">Tech</span></span>
+            </div>
+
+            <div class="nav_links">
+                <a href="../index.html">Home</a>
+                <a href="../dashboard/dashboard.html">Dashboard</a>
+                <p>|</p>
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Cadastro</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="notacao_section">
+        <h1 class="txt_inicial">A LINGUAGEM DO XADREZ</h1>
+
+        <img src="../assets/imgs/imgNotacao.jpeg" alt="" id="img_comeco">
+
+        <span class="txt_normal">Notação de xadrez é uma forma conveniente de registrar as partidas, permitindo você
+            revisá-las e estudar as táticas, entender os erros, ou impressionar seus amigos. Tente usar notação de
+            xadrez na sua próxima partida. Você vai descobrir que não tem nada mais satisfatório do que um ponto de
+            exclamação bem colocado após o lance que fez você ganhar a partida.</span>
+
+        <div class="infos">
+            <img src="../assets/imgs_aulas/notacao1.png" alt="" class="img_info">
+
+            <div class="txts_infos">
+                <span class="titulo_info">
+                    Notação Algébrica
+                </span>
+                <span class="txt_info">
+                    A forma mais comum e simples de notação de xadrez é chamada de Notação Algébrica. Esta notação
+                    indica as casas do tabuleiro com letras e números.
+                    Neste diagrama, o rei branco está na casa c3 e o rei preto está na casa h5.
+                    A linha 1 é a borda do tabuleiro onde as brancas começam. Já as pretas começam na linha 8. As
+                    colunas recebem letras que vão da esquerda para a direita em relação às brancas.
+                </span>
+            </div>
+        </div>
+
+        <span class="txt_info_corpo">
+            <span class="titulo_info">Além disso, letras maiúsculas são usadas para as peças da seguinte forma:</span>
+
+            <p>R: Rei</p>
+            <p>D: Dama</p>
+            <p>T: Torre</p>
+            <p>B: Bispo</p>
+            <p>C: Cavalo</p>
+            <p>P: Peão (geralmente, por convenção, a letra P é omitida na notação)</p>
+        </span>
+
+
+        <div class="infos">
+            <img src="../assets/imgs_aulas/notacao2.png" alt="" class="img_info" id="notacao2">
+
+            <div class="txts_infos">
+                <span class="titulo_info">
+                    Como Anotar Um Lance
+                </span>
+                <span class="txt_info">
+                    Para anotar um lance, dê o nome da peça e a casa para onde ela se move. Se uma peça é capturada,
+                    incluímos o
+                    símbolo "x" para capturas antes da letra e número da casa.
+                    Por exemplo, nesta partida, o primeiro lance das brancas é Cc3. As pretas respondem com f5
+                    (lembre-se que o P está omitido). As brancas jogam e4 e as pretas capturam o peão, fxe4, ou f
+                    captura e4. A coluna f substitui o nome do peão, já que a letra P é omitida. As brancas também
+                    capturam, Nxe4.
+                </span>
+            </div>
+        </div>
+
+
+        <span class="txt_info_corpo">
+            <span class="titulo_info">Símbolos Especiais</span>
+
+            <p>x: Captura</p>
+            <p>0-0: Roque na ala do Rei</p>
+            <p>0-0-0: Roque na ala da Dama</p>
+            <p>+: Xeque</p>
+            <p>+: Xeque</p>
+        </span>
+
+        <div class="infos">
+            <img src="../assets/imgs_aulas/notacao3.png" alt="" class="img_info">
+
+            <div class="txts_infos">
+                <span class="titulo_info">
+                    Evitando ambiguidade
+                </span>
+                <span class="txt_info">
+                    <p>Td1 não é o suficiente para definir este lance. Qual torre andou?</p>
+                    <p>Nos casos onde a notação regular for ambígua, adicione uma letra ou número para especificar a origem da peça que se move. Aqui, por exemplo, Tad1, ou Torre da coluna a até a casa d1, resolve o problema. Quando um peão faz uma captura, sempre inclua a coluna de origem, como nos exemplos fxe4 e gxf6 acima.</p>
+                </span>
+            </div>
+            
+        </div>
+
+        <button id="btn_treinar">Praticar</button>
+
+
+        <span class="fonte">Fonte: <div class="txt_verde"><a href="https://www.chess.com/pt-BR/article/view/notacao-de-xadrez-a-linguagem-do-xadrez" target="_blank">Notação de Xadrez - A Linguagem do Xadrez! - CHESS.COM</a></div></span>
+
+        
+    </div>
+
+
+</body>
+
+</html>

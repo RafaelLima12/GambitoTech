@@ -50,7 +50,6 @@ function autenticar(req, res) {
     }
 }
 
-
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
