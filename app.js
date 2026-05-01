@@ -16,8 +16,9 @@ var HOST_APP = process.env.APP_HOST;
 var app = express();
 
 var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuarios")
+var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
+var exercicioRouter = require("./src/routes/exercicios");
 
 
 app.use(express.json());
@@ -29,6 +30,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
+app.use("/exercicios", exercicioRouter);
 
 
 app.listen(PORTA_APP, function () {

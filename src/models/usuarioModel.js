@@ -26,9 +26,15 @@ function autenticar(email, senha) {
 }
 
 
+function atualizarRating(rating, id){
+    var instrucao = `update usuario set rating = ${rating} where id = ${id};`;
+    return database.executar(instrucao);
+}
+
 
 module.exports = {
     cadastrar,
     listar,
-    autenticar
+    autenticar,
+    atualizarRating
 };

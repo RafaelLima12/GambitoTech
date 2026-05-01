@@ -18,4 +18,8 @@ router.get("/listar", function (req, res) {
     usuarioController.listar(req, res);
 });
 
+router.post("/atualizarRating", function(req, res){
+    usuarioController.atualizarRating(req, res);
+});
+
 module.exports = router;

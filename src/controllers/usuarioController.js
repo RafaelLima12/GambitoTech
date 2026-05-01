@@ -66,8 +66,22 @@ function cadastrar(req, res) {
     })
 }
 
+function atualizarRating(req, res){
+    var rating = req.body.ratingServer;
+    var id = req.body.idServer;
+
+    usuarioModel.atualizarRating(rating, id).then(function (resposta){
+        res.status(200).json({
+            rating: rating
+        });
+    }).catch(function (erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listar,
     cadastrar,
-    autenticar
+    autenticar,
+    atualizarRating
 }
