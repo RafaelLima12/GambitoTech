@@ -4,47 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Quiz de Xadrez</title>
-
-    <style>
-        :root {
-            --fundo: #303030;
-            --verde: #739e45;
-            --texto: #EEEED2;
-        }
-
-        body {
-            background-color: var(--fundo);
-            color: var(--texto);
-            font-family: Arial;
-            display: flex;
-            justify-content: center;
-        }
-
-        #container {
-            width: 500px;
-            margin-top: 40px;
-        }
-
-        img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            background-color: var(--verde);
-            color: white;
-            cursor: pointer;
-        }
-    </style>
-
+    <link rel="stylesheet" href="../css/exercicios.css">
 </head>
 
 <body onload="carregarQuestoes()">
+
+
 
     <div id="container">
 
@@ -59,141 +24,172 @@
             <input type="text" id="ipt_resposta">
         </div>
 
-        <button onclick="responder()">Responder</button>
+        <button onclick="responder()" id="btn_responder">Responder</button>
         <button onclick="proxima()">Próxima</button>
 
         <p id="resultado"></p>
 
     </div>
 
-    <script>
-
-        let questoes = [];
-        const rating = Number(sessionStorage.RATING_USUARIO);
-        let ratingFinal = rating;
-
-        function carregarQuestoes() {
-
-            fetch(`/exercicios/exercicios/${rating}`)
-                .then(res => res.json())
-                .then(data => {
-                    questoes = data;
-                    carregar();
-                })
-        }
-
-        // ============================
-
-        let atual = 0;
-        let pontos = 0;
-
-        function carregar() {
-            let q = questoes[atual];
-
-            if (!q) {
-                console.log("Exercicios não encontrados!");
-                return;
-            }
-
-            document.getElementById("nome").innerText = q.nome;
-            document.getElementById("imgQuestao").src = q.img;
-            document.getElementById("ratingPergunta").innerText = q.rating;
-            document.getElementById('desc').innerText = q.descricao;
-            document.getElementById("resultado").innerText = "";
-        }
-
-        function responder() {
-            let respostaUser = ipt_resposta.value;
-
-            let diferenca = rating - questoes[atual].rating;
-
-            if (!respostaUser) {
-                alert("Digite a sua resposta!");
-                return;
-            }
-
-            if (respostaUser === questoes[atual].resposta) {
-                pontos++;
-                resultado.innerText = "Acertou!";
-
-                if (diferenca == 0) {
-                    ratingFinal += parseInt(questoes[atual].rating * (5 / 100)); // Calculo de porcentagem para o rating final
-                } else if (diferenca < 0) {
-                    ratingFinal += parseInt(questoes[atual].rating * (10 / 100));
-                } else {
-                    ratingFinal += parseInt(questoes[atual].rating * (2 / 100));
-                }
-            } else {
-                resultado.innerText = "Errou!";
-
-                if (diferenca == 0) {
-                    ratingFinal -= parseInt(rating * (8 / 100)); // Calculo de porcentagem para o rating final
-                } else if (diferenca < 0) {
-                    ratingFinal -= parseInt(rating * (2 / 100));
-                } else {
-                    ratingFinal -= parseInt(rating * (10 / 100));
-                }
-            }
-
-            console.log(ratingFinal);
-        }
-
-        function proxima() {
-            atual++;
-
-            let idUser = sessionStorage.ID_USUARIO;
-
-
-            if (atual < questoes.length) {
-                limpar();
-                carregar();
-            } else {
-                document.getElementById("container").innerHTML = "<h2>Fim do quiz</h2><p>Pontuação: " + pontos + "</p>";
-
-                console.log(idUser);
-
-                fetch("/usuarios/atualizarRating", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        ratingServer: ratingFinal,
-                        idServer: idUser
-                    })
-                }).then(function (resposta) {
-                    console.log("ESTOU NO THEN DO atualizarRating!")
-
-                    if (resposta.ok) {
-                        console.log(resposta);
-
-                        resposta.json().then(json => {
-                            console.log(json);
-                            console.log(JSON.stringify(json));
-                            sessionStorage.RATING_USUARIO = json.rating;
-                        });
-
-                    } else {
-                        console.log("Houve um erro ao tentar atualizar o rating!");
-
-                        resposta.text().then(texto => {
-                            console.error(texto);
-                            // finalizarAguardar(texto);
-                        });
-                    }
-
-                }).catch(function (erro) {
-                    console.log("To no catch");
-                    console.log(erro);
-                })
-            }
-        }
-
-        function limpar() {
-            document.querySelectorAll('input[name="opt"]').forEach(e => e.checked = false);
-        }
-    </script>
-
 </body>
 
 </html>
+
+<script>
+
+    let respondeu = false;
+
+    let questoes = [];
+    var rating = Number(sessionStorage.RATING_USUARIO);
+    let idUser = sessionStorage.ID_USUARIO;
+    // let ratingFinal = rating;
+
+    function carregarQuestoes() {
+
+        fetch(`/exercicios/exercicios/${rating}/notacao`)
+            .then(res => res.json())
+            .then(data => {
+                questoes = data;
+                carregar();
+            })
+    }
+
+    // ============================
+
+    let atual = 0;
+    let pontos = 0;
+
+    function carregar() {
+        respondeu = false;
+        let q = questoes[atual];
+
+        if (!q) {
+            console.log("Exercicios não encontrados!");
+            return;
+        }
+
+        document.getElementById("nome").innerText = q.nome;
+        document.getElementById("imgQuestao").src = q.img;
+        document.getElementById("ratingPergunta").innerText = q.rating;
+        document.getElementById('desc').innerText = q.descricao;
+        document.getElementById("resultado").innerText = "";
+    }
+
+    function responder() {
+
+        if (respondeu == true) {
+            alert("Você já respondeu essa pergunta");
+            return;
+        }
+
+        respondeu = true;
+        let respostaUser = ipt_resposta.value;
+
+        let diferenca = rating - questoes[atual].rating;
+
+        if (!respostaUser) {
+            alert("Digite a sua resposta!");
+            return;
+        }
+
+        if (respostaUser === questoes[atual].resposta) {
+            pontos++;
+            resultado.innerText = "Acertou!";
+
+            if (diferenca == 0) {
+                rating += parseInt(questoes[atual].rating * (5 / 100)); // Calculo de porcentagem para o rating final
+            } else if (diferenca < 0) {
+                rating += parseInt(questoes[atual].rating * (10 / 100));
+            } else {
+                rating += parseInt(questoes[atual].rating * (2 / 100));
+            }
+        } else {
+            resultado.innerText = "Errou!";
+
+            if (diferenca == 0) {
+                rating -= parseInt(rating * (8 / 100)); // Calculo de porcentagem para o rating final
+            } else if (diferenca < 0) {
+                rating -= parseInt(rating * (2 / 100));
+            } else {
+                rating -= parseInt(rating * (10 / 100));
+            }
+        }
+
+        fetch("/usuarios/atualizarRating", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ratingServer: rating,
+                idServer: idUser
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO atualizarRating!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.RATING_USUARIO = json.rating;
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar atualizar o rating!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    // finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log("To no catch");
+            console.log(erro);
+        })
+
+
+        //Adicionar o resultado na tabela exercicioRespondido
+        fetch("/exercicios/responder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkUsuario: idUser,
+                fkExercicio: questoes[atual].id,
+                ratingUserDepois: rating,
+                acertou: respostaUser === questoes[atual].resposta ? 1 : 0
+            })
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Erro ao salvar resposta");
+            })
+            .catch(erro => {
+                console.error("Erro ao salvar resposta:", erro);
+                res.status(500).json(erro);
+            });
+    }
+
+    function proxima() {
+        if (!respondeu) {
+            alert("Responda antes de ir para o proximo exercicio");
+            return;
+        }
+
+        atual++;
+
+        if (atual < questoes.length) {
+            limpar();
+            carregar();
+        } else {
+            document.getElementById("container").innerHTML = "<h2>Fim do quiz</h2><p>Pontuação: " + pontos + "</p>";
+        }
+    }
+
+    function limpar() {
+        document.querySelectorAll('input[name="opt"]').forEach(e => e.checked = false);
+    }
+</script>
