@@ -1,0 +1,133 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto-claro);
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+:root {
+    --fundo: #303030;
+    --fundo-secundaria: #262421;
+    --verde-chess: #739e45;
+    --verde-escuro: #5d7a44;
+    --texto-claro: #EEEED2;
+    --branco-puro: #FFFFFF;
+}
+
+/* nav */
+#navbar {
+    background-color: var(--fundo-secundaria);
+    height: 80px;
+    width: 100%;
+}
+
+.nav_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.nav_links {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    color: var(--verde-chess);
+    font-size: large;
+}
+
+.nav_links a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#nav_logo img {
+    width: 100px;
+}
+
+#nav_logo {
+    display: flex;
+    align-items: center;
+}
+
+#txt_logo {
+    color: var(--texto-claro);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#txt_destaque_logo {
+    color: var(--verde-chess);
+}
+
+/* Estilização das KPIs */
+
+#dashboard_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#kpi_section {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+}
+
+.kpi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: linear-gradient(145deg, var(--fundo), var(--fundo-secundaria));
+    height: 130px;
+    width: 280px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.titulo_kpi {
+    font-weight: bold;
+    font-size: 22px;
+    color: var(--verde-chess);
+}
+
+.info_kpi {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#graficos_section {
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#grafico_linha {
+    background-color: var(--fundo-secundaria);
+    padding: 20px;
+    width: 800px;
+    border-radius: 10px;
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+#grafico_pizza {
+    background-color: var(--fundo-secundaria);
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}

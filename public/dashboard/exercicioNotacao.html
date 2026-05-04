@@ -8,26 +8,52 @@
 </head>
 
 <body onload="carregarQuestoes()">
+    <div id="navbar">
+        <div class="nav_content">
+            <div id="nav_logo">
+                <img src="../assets/imgs/logo.png" alt="">
 
+                <span id="txt_logo">Gambito<span id="txt_destaque_logo">Tech</span></span>
+            </div>
 
+            <div class="nav_links">
+                <a href="../index.html">Home</a>
+                <a href="../dashboard/dashboard.html">Dashboard</a>
+                <p>|</p>
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Cadastro</a>
+            </div>
+        </div>
+    </div>
+    <div id="exercicio_section">
 
-    <div id="container">
+        <div id="exercicio">
+            <div id="info_exercicio">
+                <h2>Rating do exercicio: <span id="ratingPergunta"></span></h2>
+            </div>
 
-        <h1 id="nome"></h1>
-        <h2 id="ratingPergunta"></h2>
+            <div id="img_e_nome">
+                <h1 id="nome"></h1>
+                <img id="imgQuestao">
+                <h3 id="desc"></h3>
+                <h3 id="resultado"></h3>
 
-        <img id="imgQuestao">
+            </div>
 
-        <h3 id="desc"></h3>
-
-        <div>
-            <input type="text" id="ipt_resposta">
+            <div id="info_user">
+                <h2>Seu rating: <span id="rating_user"></span></h2>
+                <span id="rating_ganho"></span>
+            </div>
         </div>
 
-        <button onclick="responder()" id="btn_responder">Responder</button>
-        <button onclick="proxima()">Próxima</button>
+        <div id="inputs">
+            <input type="text" id="ipt_resposta" placeholder="Digite sua resposta">
 
-        <p id="resultado"></p>
+            <div id="btns">
+                <button onclick="responder()" id="btn_responder">Responder</button>
+                <button onclick="proxima()" id="btn_proxima">Próxima</button>
+            </div>
+        </div>
 
     </div>
 
@@ -42,10 +68,11 @@
     let questoes = [];
     var rating = Number(sessionStorage.RATING_USUARIO);
     let idUser = sessionStorage.ID_USUARIO;
+    let ratingInicial = rating;
     // let ratingFinal = rating;
 
     function carregarQuestoes() {
-
+        respondeu = false;
         fetch(`/exercicios/exercicios/${rating}/notacao`)
             .then(res => res.json())
             .then(data => {
@@ -57,9 +84,9 @@
     // ============================
 
     let atual = 0;
-    let pontos = 0;
 
     function carregar() {
+        ipt_resposta.value = "";
         respondeu = false;
         let q = questoes[atual];
 
@@ -73,6 +100,9 @@
         document.getElementById("ratingPergunta").innerText = q.rating;
         document.getElementById('desc').innerText = q.descricao;
         document.getElementById("resultado").innerText = "";
+        rating_user.innerHTML = rating;
+
+        rating_ganho.innerHTML = "";
     }
 
     function responder() {
@@ -92,27 +122,33 @@
             return;
         }
 
+        let ratingAntes = rating;
         if (respostaUser === questoes[atual].resposta) {
-            pontos++;
             resultado.innerText = "Acertou!";
 
             if (diferenca == 0) {
                 rating += parseInt(questoes[atual].rating * (5 / 100)); // Calculo de porcentagem para o rating final
             } else if (diferenca < 0) {
-                rating += parseInt(questoes[atual].rating * (10 / 100));
+                rating += parseInt(questoes[atual].rating * (8 / 100));
             } else {
                 rating += parseInt(questoes[atual].rating * (2 / 100));
             }
+
+            rating_ganho.innerHTML = `+${rating - ratingAntes}`;
+            rating_ganho.style.color = "#739e45";
         } else {
             resultado.innerText = "Errou!";
 
             if (diferenca == 0) {
-                rating -= parseInt(rating * (8 / 100)); // Calculo de porcentagem para o rating final
+                rating -= parseInt(questoes[atual].rating * (8 / 100)); // Calculo de porcentagem para o rating final
             } else if (diferenca < 0) {
-                rating -= parseInt(rating * (2 / 100));
+                rating -= parseInt(questoes[atual].rating * (2 / 100));
             } else {
-                rating -= parseInt(rating * (10 / 100));
+                rating -= parseInt(questoes[atual].rating * (10 / 100));
             }
+
+            rating_ganho.innerHTML = `${rating - ratingAntes}`;
+            rating_ganho.style.color = "#c0392b";
         }
 
         fetch("/usuarios/atualizarRating", {
@@ -185,7 +221,18 @@
             limpar();
             carregar();
         } else {
-            document.getElementById("container").innerHTML = "<h2>Fim do quiz</h2><p>Pontuação: " + pontos + "</p>";
+            document.getElementById("exercicio_section").innerHTML = `<h1>Fim dos exercicios</h1>
+                                                                      <H2>Rating inicial: ${ratingInicial}</h2>
+                                                                      <h2>Rating final: ${rating}</h2>
+                                                                      <h2 style="color:${rating > ratingInicial ? '#739e45' : '#c0392b'}">
+                                                                      ${rating > ratingInicial ? '+' : ''}${rating - ratingInicial}</h2>
+                                                                      
+                                                                      
+                                                                      <div id="btns_final">
+                                                                      <a href="../dashboard/dashboard.html"><button>Dashboard</button></a>
+                                                                      <a href="../dashboard/perfil.html"><button>Perfil</button></a>
+                                                                      <button onclick="location.reload()">Tentar novamente</button>
+                                                                      </div>`;
         }
     }
 
