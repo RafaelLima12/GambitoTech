@@ -116,7 +116,7 @@ body {
 }
 
 #grafico_linha {
-    background-color: var(--fundo-secundaria);
+    background: linear-gradient(45deg, var(--fundo), var(--fundo-secundaria));
     padding: 20px;
     width: 800px;
     border-radius: 10px;
@@ -125,7 +125,7 @@ body {
 }
 
 #grafico_pizza {
-    background-color: var(--fundo-secundaria);
+    background: linear-gradient(45deg, var(--fundo), var(--fundo-secundaria));
     padding: 20px;
     width: 400px;
     border-radius: 10px;

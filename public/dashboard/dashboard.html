@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../js/perfil.js"></script>
 </head>
 
-<body onload="carregarInfo()">
+<body onload="carregarInfoPerfil(), carregarGrafico()">
     <div id="navbar">
         <div class="nav_content">
             <div id="nav_logo">
@@ -21,7 +22,7 @@
                 <a href="../index.html">Home</a>
                 <a href="../dashboard/dashboard.html">Dashboard</a>
                 <p>|</p>
-                <a href="login.html">Login</a>
+                <a href="perfil.html">Perfil</a>
                 <a href="cadastro.html">Cadastro</a>
             </div>
         </div>
@@ -36,7 +37,7 @@
                     <span class="titulo_kpi">Rating atual</span>
                 </div>
                 <div class="info_kpi">
-                    <span class="txt_info_kpi" id="ratingUserKPI">300</span>
+                    <span class="txt_info_kpi" id="rating_usuario">300</span>
                 </div>
             </div>
 
@@ -63,7 +64,7 @@
                     <span class="txt_titulo_kpi">Seu nível</span>
                 </div>
                 <div class="info_kpi">
-                    <span class="txt_info_kpi">Capivara</span>
+                    <span class="txt_info_kpi" id="nivel_usuario">Indefinido</span>
                 </div>
             </div>
 
@@ -99,30 +100,73 @@
 
 
 <script>
-    const ctx = document.getElementById('graficoLinha');
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: 'Rating',
-                data: [12, 19, 3, 5, 2, 3],
+    function carregarGrafico() {
+        idUser = sessionStorage.ID_USUARIO;
 
-                borderColor: '#739e45',      // cor da linha
-                backgroundColor: '#739e4533', // cor do preenchimento (transparente)
-                borderWidth: 2,
-                tension: 0.4,
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        fetch(`/dashboard/infoGraficoLinha/${idUser}`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoLinha(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+
+    function plotarGraficoLinha(dados) {
+        let ctx = document.getElementById('graficoLinha');
+        let labels= [];
+
+        let graficoLinha = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Rating',
+                    data: [],
+
+                    borderColor: '#739e45',      // cor da linha
+                    backgroundColor: '#739e4533', // cor do preenchimento (transparente)
+                    borderWidth: 2,
+                    tension: 0.4,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
+        });
+
+        for (i = 0; i < dados.length; i++) {
+            var registro = dados[i];
+            graficoLinha.data.labels.push(registro.dataRegistro);
+            graficoLinha.data.datasets[0].data.push(registro.ratingUserDepois);
+
+            //condição para remover os dados mais antigo quando o grafico atingir um determinado número de dados
+            if(graficoLinha.data.labels.length > 15){
+                graficoLinha.data.labels.shift();
+                graficoLinha.data.datasets[0].data.shift();
+            }
         }
-    });
+        
+
+        graficoLinha.update();
+    }
+
+
+
+
 
 
     const pizza = document.getElementById('graficoPizza');
@@ -151,8 +195,5 @@
     });
 
 
-    function carregarInfo() {
-        var ratingAtual = sessionStorage.RATING_USUARIO;
-        ratingUserKPI.innerHTML = ratingAtual;
-    }
+
 </script>

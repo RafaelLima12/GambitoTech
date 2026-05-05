@@ -84,7 +84,9 @@ body {
     font-size: 15px;
     font-weight: bold;
 }
-
+input{
+    padding-left: 10px;
+}
 .txt_input {
     color: var(--verde-chess);
     font-size: 17px;

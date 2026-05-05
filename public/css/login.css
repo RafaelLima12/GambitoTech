@@ -97,6 +97,10 @@ body {
     gap: 20px;
 }
 
+input{
+    padding-left: 10px;
+}
+
 #botao_logar {
     margin-top: 50px;
     height: 40px;
