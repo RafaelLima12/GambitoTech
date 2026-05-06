@@ -2,11 +2,11 @@ var exercicioModel = require("../models/exercicioModel");
 
 function buscarExercicios(req, res) {
     const rating = req.params.rating;
-    const tipo = req.params.tipo;
+    const fkTipo = req.params.fkTipo;
 
-    console.log("Tipo de exercicio: ", tipo)
+    console.log("Tipo de exercicio: ", fkTipo)
 
-    exercicioModel.buscarPorRating(rating, tipo)
+    exercicioModel.buscarPorRating(rating, fkTipo)
         .then(resultado => {
             res.json(resultado);
         })

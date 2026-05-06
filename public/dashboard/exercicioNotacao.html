@@ -73,7 +73,7 @@
 
     function carregarQuestoes() {
         respondeu = false;
-        fetch(`/exercicios/exercicios/${rating}/notacao`)
+        fetch(`/exercicios/exercicios/${rating}/1`)
             .then(res => res.json())
             .then(data => {
                 questoes = data;
@@ -112,7 +112,6 @@
             return;
         }
 
-        respondeu = true;
         let respostaUser = ipt_resposta.value;
 
         let diferenca = rating - questoes[atual].rating;
@@ -121,6 +120,8 @@
             alert("Digite a sua resposta!");
             return;
         }
+
+        respondeu = true;
 
         let ratingAntes = rating;
         if (respostaUser === questoes[atual].resposta) {

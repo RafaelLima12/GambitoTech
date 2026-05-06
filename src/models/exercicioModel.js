@@ -5,7 +5,7 @@ function buscarPorRating(ratingUsuario, tipo){
     ratingUsuario = Number(ratingUsuario);
     const instrucao = `select * from exercicio where rating <= ${ratingUsuario + 150}
     and rating >= ${ratingUsuario - 500}
-    and tipo = '${tipo}'
+    and fkTipo = '${tipo}'
     order by rand()
     limit 5;`;
 

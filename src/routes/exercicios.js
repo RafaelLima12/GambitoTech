@@ -3,7 +3,7 @@ var router = express.Router();
 
 var exercicioController = require("../controllers/exercicioController");
 
-router.get("/exercicios/:rating/:tipo", function (req, res) {
+router.get("/exercicios/:rating/:fkTipo", function (req, res) {
     exercicioController.buscarExercicios(req, res);
 });
 
