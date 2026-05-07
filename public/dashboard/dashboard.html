@@ -9,7 +9,7 @@
     <script src="../js/perfil.js"></script>
 </head>
 
-<body onload="carregarInfoPerfil(), carregarGrafico()">
+<body onload="carregarInfoPerfil(), carregarGraficos(), pontoFraco()">
     <div id="navbar">
         <div class="nav_content">
             <div id="nav_logo">
@@ -39,6 +39,7 @@
                 <div class="info_kpi">
                     <span class="txt_info_kpi" id="rating_usuario">300</span>
                 </div>
+                <span id="diferenca_rating"></span>
             </div>
 
             <div class="kpi">
@@ -46,8 +47,9 @@
                     <span class="titulo_kpi">Rating mais alto</span>
                 </div>
                 <div class="info_kpi">
-                    <span class="txt_info_kpi">350</span>
+                    <span class="txt_info_kpi" id="rating_mais_alto">300</span>
                 </div>
+                <span id="dt_rating_mais_alto">undefined</span>
             </div>
 
             <div class="kpi">
@@ -55,8 +57,9 @@
                     <span class="titulo_kpi">Ponto fraco</span>
                 </div>
                 <div class="info_kpi">
-                    <span class="txt_info_kpi">Temas táticos</span>
+                    <span class="txt_info_kpi" id="ponto_fraco_kpi">Xadrez</span>
                 </div>
+                <span id="proporcao_acerto">0,00%</span>
             </div>
 
             <div class="kpi">
@@ -101,8 +104,10 @@
 
 <script>
 
-    function carregarGrafico() {
-        idUser = sessionStorage.ID_USUARIO;
+    var ratingMaisAlto = 300;
+    var idUser = sessionStorage.ID_USUARIO;
+
+    function carregarGraficos() {
 
         fetch(`/dashboard/infoGraficoLinha/${idUser}`).then(function (response) {
             if (response.ok) {
@@ -117,13 +122,69 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+
+        fetch(`/dashboard/infoGraficoPizza/${idUser}`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGraficoPizza(resposta);
+                    ratingMaisAlto = resposta[0].maior_rating;
+                    rating_mais_alto.innerText = ratingMaisAlto;
+                    dt_rating_mais_alto.innerText = resposta[0].data_maior_rating;
+                    if (ratingMaisAlto > sessionStorage.RATING_USUARIO) {
+                        diferenca_rating.innerText = `↓${ratingMaisAlto - sessionStorage.RATING_USUARIO}`;
+                        diferenca_rating.style.color = "#c0392b";
+                    } else {
+                        diferenca_rating.innerText = "";
+                    }
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
+
+    function plotarGraficoPizza(dados) {
+        const pizza = document.getElementById('graficoPizza');
+
+        let graficoPizza = new Chart(pizza, {
+            type: 'pie',
+            data: {
+                labels: ['Acertos', 'Erros'],
+                datasets: [{
+                    label: 'Acertos e erros',
+                    data: [],
+                    backgroundColor: [
+                        '#739e45', // Define a cor dos acertos
+                        '#a93226'  // Define a cor dos erros
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        graficoPizza.data.datasets[0].data.push(dados[0].acertos);
+        graficoPizza.data.datasets[0].data.push(dados[0].erros);
+
+
+        graficoPizza.update();
+    }
 
 
     function plotarGraficoLinha(dados) {
         let ctx = document.getElementById('graficoLinha');
-        let labels= [];
+        let labels = [];
 
         let graficoLinha = new Chart(ctx, {
             type: 'line',
@@ -148,52 +209,50 @@
             }
         });
 
-        for (i = 0; i < dados.length; i++) {
+        for (i = dados.length - 1; i >= 0; i--) {
             var registro = dados[i];
             graficoLinha.data.labels.push(registro.dataRegistro);
             graficoLinha.data.datasets[0].data.push(registro.ratingUserDepois);
 
-            //condição para remover os dados mais antigo quando o grafico atingir um determinado número de dados
-            if(graficoLinha.data.labels.length > 15){
-                graficoLinha.data.labels.shift();
-                graficoLinha.data.datasets[0].data.shift();
-            }
+            // if (registro.ratingUserDepois > ratingMaisAlto) {
+            //     ratingMaisAlto = registro.ratingUserDepois;
+
+            //     rating_mais_alto.innerHTML = ratingMaisAlto;
+            //     dt_rating_mais_alto.innerText = registro.dataRegistro;
+
+            //     if (ratingMaisAlto > sessionStorage.RATING_USUARIO) {
+            //         diferenca_rating.innerText = `↓${ratingMaisAlto - sessionStorage.RATING_USUARIO}`;
+            //         diferenca_rating.style.color = "#c0392b";
+            //     } else {
+            //         diferenca_rating.innerText = "";
+            //     }
+            // }
+
+            // if(graficoLinha.data.datasets[0].data.length > 20){
+            //     graficoLinha.data.datasets[0].data.shift();
+            //     graficoLinha.data.labels.shift();
+            // }
+
         }
-        
 
         graficoLinha.update();
     }
 
+    function pontoFraco() {
+        fetch(`/dashboard/buscarPontoFraco/${idUser}`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-
-
-
-
-    const pizza = document.getElementById('graficoPizza');
-
-    new Chart(pizza, {
-        type: 'pie',
-        data: {
-            labels: ['Acertos', 'Erros'],
-            datasets: [{
-                label: 'Acertos e erros',
-                data: [12, 6],
-                backgroundColor: [
-                    '#739e45', // Define a cor dos acertos
-                    '#a93226'  // Define a cor dos erros
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+                    ponto_fraco_kpi.innerHTML = resposta[0].tipo;
+                    proporcao_acerto.innerHTML = `Taxa de acertos: ${resposta[0].proporcao_resposta_acerto}%`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
             }
-        }
-    });
-
-
-
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 </script>

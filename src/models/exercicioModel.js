@@ -3,7 +3,7 @@ var database = require("../database/config");
 
 function buscarPorRating(ratingUsuario, tipo){
     ratingUsuario = Number(ratingUsuario);
-    const instrucao = `select * from exercicio where rating <= ${ratingUsuario + 150}
+    const instrucao = `select * from exercicio where rating <= ${ratingUsuario + 250}
     and rating >= ${ratingUsuario - 500}
     and fkTipo = '${tipo}'
     order by rand()
