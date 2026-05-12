@@ -9,7 +9,7 @@
     <script src="../js/perfil.js"></script>
 </head>
 
-<body onload="carregarInfoPerfil(), carregarGraficos(), pontoFraco()">
+<body onload="carregar_infos()">
     <div id="navbar">
         <div class="nav_content">
             <div id="nav_logo">
@@ -76,8 +76,9 @@
 
 
         <div id="graficos_section">
-
+            
             <div id="grafico_linha">
+                <span>Evolução do Rating</span>
                 <div>
                     <canvas id="graficoLinha"></canvas>
                 </div>
@@ -88,6 +89,7 @@
 
 
             <div id="grafico_pizza">
+                <span class="txt_grafico">Acertos e erros dos exercícios</span>
                 <div>
                     <canvas id="graficoPizza"></canvas>
                 </div>
@@ -106,6 +108,12 @@
 
     var ratingMaisAlto = 300;
     var idUser = sessionStorage.ID_USUARIO;
+
+    function carregar_infos() {
+        carregarInfoPerfil();
+        carregarGraficos();
+        pontoFraco();
+    }
 
     function carregarGraficos() {
 
