@@ -5,9 +5,6 @@
 /*
 comandos para mysql server
 */
-
-drop database if exists gambitoTech;
-
 create database gambitoTech;
 
 use gambitoTech;

@@ -28,6 +28,7 @@
         </div>
     </div>
 
+
     <div id="dashboard_section">
         <div id="kpi_section">
 
@@ -64,21 +65,21 @@
 
             <div class="kpi">
                 <div class="titulo_kpi">
-                    <span class="txt_titulo_kpi">Seu nível</span>
+                    <span class="txt_titulo_kpi">Seu nível atual</span>
                 </div>
                 <div class="info_kpi">
                     <span class="txt_info_kpi" id="nivel_usuario">Indefinido</span>
                 </div>
+                <span id="prx_nivel_txt"></span>
             </div>
 
 
         </div>
 
-
         <div id="graficos_section">
-            
+
             <div id="grafico_linha">
-                <span>Evolução do Rating</span>
+                <span class="txt_grafico">Sua evolução de Rating</span>
                 <div>
                     <canvas id="graficoLinha"></canvas>
                 </div>
@@ -136,15 +137,7 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     plotarGraficoPizza(resposta);
-                    ratingMaisAlto = resposta[0].maior_rating;
-                    rating_mais_alto.innerText = ratingMaisAlto;
-                    dt_rating_mais_alto.innerText = resposta[0].data_maior_rating;
-                    if (ratingMaisAlto > sessionStorage.RATING_USUARIO) {
-                        diferenca_rating.innerText = `↓${ratingMaisAlto - sessionStorage.RATING_USUARIO}`;
-                        diferenca_rating.style.color = "#c0392b";
-                    } else {
-                        diferenca_rating.innerText = "";
-                    }
+                    kpiInfo(resposta);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -154,6 +147,8 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
+
+
 
 
     function plotarGraficoPizza(dados) {
@@ -221,26 +216,6 @@
             var registro = dados[i];
             graficoLinha.data.labels.push(registro.dataRegistro);
             graficoLinha.data.datasets[0].data.push(registro.ratingUserDepois);
-
-            // if (registro.ratingUserDepois > ratingMaisAlto) {
-            //     ratingMaisAlto = registro.ratingUserDepois;
-
-            //     rating_mais_alto.innerHTML = ratingMaisAlto;
-            //     dt_rating_mais_alto.innerText = registro.dataRegistro;
-
-            //     if (ratingMaisAlto > sessionStorage.RATING_USUARIO) {
-            //         diferenca_rating.innerText = `↓${ratingMaisAlto - sessionStorage.RATING_USUARIO}`;
-            //         diferenca_rating.style.color = "#c0392b";
-            //     } else {
-            //         diferenca_rating.innerText = "";
-            //     }
-            // }
-
-            // if(graficoLinha.data.datasets[0].data.length > 20){
-            //     graficoLinha.data.datasets[0].data.shift();
-            //     graficoLinha.data.labels.shift();
-            // }
-
         }
 
         graficoLinha.update();
@@ -262,5 +237,33 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
+    }
+
+
+    function kpiInfo(resposta) {
+        let niveis = [300, 500, 1000, 1600, 2200, 2300, 2400, 2500];
+        ratingMaisAlto = resposta[0].maior_rating;
+        rating_mais_alto.innerText = ratingMaisAlto;
+        dt_rating_mais_alto.innerText = resposta[0].data_maior_rating;
+
+        if (ratingMaisAlto > sessionStorage.RATING_USUARIO) {
+            diferenca_rating.innerText = `↓${ratingMaisAlto - sessionStorage.RATING_USUARIO}`;
+            diferenca_rating.style.color = "#c0392b";
+        } else {
+            diferenca_rating.innerText = "";
+        }
+
+        if (sessionStorage.RATING_USUARIO >= 2500) {
+            prx_nivel_txt.innerText = `Nível máximo atingido!!! PARABÉNS`;
+            prx_nivel_txt.style.color = "#739e45";
+        } else {
+            for (let i = 0; i < niveis.length; i++) {
+                if (sessionStorage.RATING_USUARIO < niveis[i]) {
+                    prx_nivel_txt.innerText = `+${(niveis[i] - sessionStorage.RATING_USUARIO)} de rating para o próximo nível`;
+                    prx_nivel_txt.style.color = "#739e45";
+                    break;
+                }
+            }
+        }
     }
 </script>
