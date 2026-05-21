@@ -48,8 +48,18 @@ function buscarPontoFraco(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarRanking(){
+    var instrucaoSql =`
+        select id, nome, rating from usuario
+        order by rating desc;
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     infoGraficoLinha,
     infoGraficoPizza,
-    buscarPontoFraco
+    buscarPontoFraco,
+    buscarRanking
 };

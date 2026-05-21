@@ -31,10 +31,19 @@ function buscarPontoFraco(req, res) {
     })
 }
 
+function buscarRanking(req, res){
+    dashboardModel.buscarRanking().then(function (resultado){
+        res.status(200).json(resultado)
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 
 module.exports = {
     infoGraficoLinha,
     infoGraficoPizza,
-    buscarPontoFraco
+    buscarPontoFraco,
+    buscarRanking
 }

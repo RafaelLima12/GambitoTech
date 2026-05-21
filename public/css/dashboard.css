@@ -78,10 +78,14 @@ body {
     margin-top: 20px;
 }
 
+#main_section{
+    display: flex;
+}
+
 #kpi_section {
     display: flex;
     justify-content: space-around;
-    width: 90%;
+    width: 100%;
     flex-wrap: wrap;
 }
 
@@ -110,7 +114,7 @@ body {
 
 #graficos_section {
     display: flex;
-    width: 90%;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     margin-top: 50px;
@@ -121,9 +125,11 @@ body {
 #grafico_linha {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background: linear-gradient(45deg, var(--fundo), var(--fundo-secundaria));
-    padding: 20px;
-    width: 800px;
+    padding: 10px;
+    width: 780px;
+    height: 450px;
     border-radius: 10px;
 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
@@ -144,4 +150,135 @@ body {
     width: 400px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+#side_bar{
+    background-color: #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 200px;
+    height: calc(100vh - 80px);
+}
+
+
+#bar_txts{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    color: var(--verde-chess);
+    width: 100%;
+}
+
+.bar_txt{
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.icon_bar{
+    width: 30px;
+    margin-right: 10px;
+}
+
+/* Seção do ranking */
+
+#ranking_section{
+    display: none;
+    width: 100%;
+
+    flex-direction: column;
+    align-items: center;
+}
+
+#head_ranking_section{
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    color: var(--verde-chess);
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+#head_ranking_section span{
+    margin-left: 10px;
+}
+
+#head_ranking{
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    color: var(--verde-chess);
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#ranking_players{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    margin-top: 5px;
+    /* background-color: #5d7a4429; */
+    overflow-y: auto;
+    border-radius: 20px;
+}
+
+#ranking_block{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 560px;
+    background-color: var(--fundo);
+    border: 3px solid var(--verde-chess);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.elemento_ranking{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+    width: 90%;
+    height: 60px;
+    background-color: var(--fundo-secundaria);
+    margin-top: 15px;
+    border-radius: 15px;
+    border: 3px solid var(--verde-chess);
+    font-weight: bold;
+    font-size: 18px;
+
+    flex-shrink: 0; /*Coloquei isso aqui porque os elementos estavam encolhendo fanzendo com que o overflow não funcionasse corretamente*/
+}
+
+
+/* Cores diferentes para os Top 3 players do ranking*/
+.primeiro_lugar {
+    border-color: #FFC107;
+    color: #FFC107;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+}
+
+.segundo_lugar {
+    border-color: #C0C0C0;
+    color: #C0C0C0;
+}
+
+.terceiro_lugar {
+    border-color: #CD7F32;
+    color: #CD7F32;
+}
+
+.player_ranking{
+    border: 3px dashed;
 }

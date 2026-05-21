@@ -16,5 +16,8 @@ router.get("/infoGraficoPizza/:idUsuario", function (req, res){
     dashboardController.infoGraficoPizza(req, res);
 });
 
+router.get("/ranking", function(req, res){
+    dashboardController.buscarRanking(req, res);
+})
 
 module.exports = router;
