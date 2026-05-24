@@ -160,7 +160,9 @@ function kpiInfo(resposta) {
         diferenca_rating.innerText = `↓${ratingMaisAlto - sessionStorage.RATING_USUARIO}`;
         diferenca_rating.style.color = "#c0392b";
     } else {
-        diferenca_rating.innerText = "";
+        diferenca_rating.innerText = "Continue assim";
+        diferenca_rating.style.color = "#739e45";
+
     }
 
     if (sessionStorage.RATING_USUARIO >= 2500) {
