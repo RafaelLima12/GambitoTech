@@ -175,19 +175,19 @@ body {
     display: none;
     align-items: center;
     justify-content: space-around;
-    width: 37%;
+    width: 40%;
 
     margin-top: 40px;
 }
 
 #foto_bot {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border-radius: 10px;
 
     border: 3px solid var(--verde-chess);
-    /* margin-left: 30px; */
+    /* margin-left: 10px; */
 }
 
 #mensagem_bot{
@@ -201,4 +201,8 @@ body {
 
     font-size: 18px;
     font-weight: bold;
+}
+
+.peca{
+    cursor: pointer;
 }

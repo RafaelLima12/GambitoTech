@@ -161,7 +161,7 @@ body {
 }
 
 /* Seção aprender */
-#section_aprender {
+.section_aprender {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -170,7 +170,8 @@ body {
 
 #cards_section {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
@@ -233,3 +234,4 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
