@@ -1,4 +1,5 @@
 let letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+let historico = "";
 
 function carregarTabuleiro() {
     lances.innerHTML = "";
@@ -74,9 +75,9 @@ function moverPeca(idCasa) {
         //Verificação para saber se o usuario clicou duas vezes na mesma casa
         if (idCasa === casaAntiga) {
             document.getElementById(casaAntiga).style.backgroundColor = ""; // Tira o amarelo
-            casaAntiga = ""; 
+            casaAntiga = "";
             notacao = "";
-            return;    
+            return;
         }
         if (casaClicada.innerHTML == "") {
             console.log("Vazia")
@@ -96,11 +97,16 @@ function moverPeca(idCasa) {
         }
 
         console.log(notacao);
+        historico += notacao + " ";
 
         lances.innerHTML += `<div class="notacao">${notacao}</div>`;
+
         if (usoBot) {
             console.log("Enviei o lance para o bot");
             gerarResposta(notacao);
+        } else if (botJogar) {
+            console.log("Enviei o lance para o bot jogar");
+            gerarLance(historico);
         } else {
             console.log("Não enviei o lance para o bot");
         }
@@ -124,6 +130,10 @@ var usoBot = false;
 function habilitarBot() {
     mensagem_bot.innerText = "";
 
+    if (botJogar) {
+        habilitarBotJogar();
+    }
+
     if (!usoBot) {
         carregarTabuleiro();
         bot_section.style.display = "flex";
@@ -136,7 +146,25 @@ function habilitarBot() {
     }
 }
 
-// BobbyBot
+var botJogar = false;
+function habilitarBotJogar() {
+    if (usoBot) {
+        habilitarBot();
+    }
+
+    if (!botJogar) {
+        carregarTabuleiro();
+        bot_section.style.display = "flex";
+        botJogar = true;
+
+        mensagem_bot.innerText = "Olá! Eu sou o BobbyBot. Estou aqui para jogar com você em tempo real. Faça seus lances no tabuleiro e eu irei fazer meus. Vamos começar?";
+    } else {
+        bot_section.style.display = "none";
+        botJogar = false;
+    }
+}
+
+// BobbyBot avaliacao do lance
 async function gerarResposta(pergunta) {
     console.log("Lance " + pergunta + " enviado")
     mensagem_bot.innerText = "Analisando...";
@@ -153,5 +181,39 @@ async function gerarResposta(pergunta) {
 
     // resposta.style.display = 'block';
     // document.getElementById('resposta').innerText = data.resultado;
+    console.log(data.resultado);
     mensagem_bot.innerText = data.resultado;
+}
+
+async function gerarLance(historico) {
+    mensagem_bot.innerText = "Calculando o melhor lance...";
+
+    const response = await fetch('http://localhost:3000/jogar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ historico: historico })
+    })
+
+    const data = await response.json();
+
+    console.log(data.resultado);
+
+    moverPecaBot(data.resultado);
+};
+
+function moverPecaBot(lance) {
+
+    lances = lance.split(" ");
+
+    console.log("top");
+    console.log(lances);
+    console.log(lances[0]);
+    console.log(lances[1]);
+    console.log(lances[2]);
+
+
+    document.getElementById(lances[1]).innerHTML = document.getElementById(lances[0]).innerHTML;
+    document.getElementById(lances[0]).innerHTML = "";
+    historico += lances[2];
+    lances.innerHTML += `<div class="notacao">${lances[2]}</div>`;
 }

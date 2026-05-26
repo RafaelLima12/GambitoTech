@@ -7,7 +7,7 @@ function buscarPorRating(ratingUsuario, tipo){
     and rating >= ${ratingUsuario - 500}
     and fkTipo = '${tipo}'
     order by rand()
-    limit 5;`;
+    limit 3;`;
 
     return database.executar(instrucao);
 }
