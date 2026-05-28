@@ -182,21 +182,3 @@
 </body>
 
 </html>
-
-<script>
-    function enviar() {
-        const fotoEnviar = input_img.files[0];
-
-        console.log(fotoEnviar);
-
-        if (fotoEnviar) {
-            const leitor = new FileReader();
-
-            leitor.onload = function (e) {
-                document.getElementById("foto_perfil").src = e.target.result;
-            }
-
-            leitor.readAsDataURL(fotoEnviar);
-        }
-    }
-</script>
