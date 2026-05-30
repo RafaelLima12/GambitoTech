@@ -7,7 +7,6 @@ function carregarTabuleiro() {
     const tabuleiro = document.getElementById("tabuleiro");
     let tabuleiroConst = ""; // Tive que criar essa variavel para armazenar os dados, pois como estou usando inner.html quando coloco <div> essa tag já e fechada autpmaticamente 
 
-
     for (let i = 8; i >= 1; i--) {
         tabuleiroConst += `<div class="linha">`
         for (let j = 1; j <= 8; j++) {
@@ -188,7 +187,9 @@ async function gerarLance(historico) {
 
     const response = await fetch('http://localhost:3000/jogar', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json' 
+        },
         body: JSON.stringify({ historico: historico })
     })
 
